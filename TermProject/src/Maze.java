@@ -122,75 +122,7 @@ public class Maze
 			}
 		}
 	}
-
-	public void createPath() // finds a path in the maze
-	{
-		if( N != 1) //if maze is not of size 1
-		{
-			depthSearch(0); // executes a first breath search starting on the top
-			// left cell
-			
-			path[0] = true; // path starts on top left cell
-			path[N * N - 1] = true; // path ends on bottom right cell
-			
-			int current = cells[N * N - 1].visitedBy; // start on the last, bottom
-			// right cell
-			while (current != 0) // follows the path back to the starting cell
-			{
-				path[current] = true;
-				current = cells[current].visitedBy;
-			}
-		}
-		else // if maze is of size 1
-		{
-			path[0] = true ;
-		}
-
-		cells[0].walls[WEST] = N * N; // destroys west wall on top left cell
-		cells[N * N - 1].walls[EAST] = N * N; // destroys east wall on bottom right
-		// cell
-	}
-
-	public void depthSearch(int cell) // executes a first breath search to find
-	// a path in the maze
-	{
-		Cell startCell = cells[cell]; // current cell being checked
-		
-		for (int i = 0; i < 4; i++) // check if there is a path north, south,
-		// east, or west
-		{
-			int adjacent = -1;
-			
-			if (startCell.walls[i] == N * N) // if there is no wall in north,
-			// south, east or west direction
-			{
-				if (i == NORTH)
-				{
-					adjacent = cell - N;
-				}
-				if (i == SOUTH)
-				{
-					adjacent = cell + N;
-				}
-				if (i == EAST)
-				{
-					adjacent = cell + 1;
-				}
-				if (i == WEST)
-				{
-					adjacent = cell - 1;
-				}
-				
-				if (cells[adjacent].visitedBy == -1)
-				{
-					cells[adjacent].visitedBy = cell; // update information to
-					// store which cell has visited this one
-					depthSearch(adjacent);
-				}
-			}
-		}
-	}
-
+	
 	public void draw(Graphics g) // draws a maze and its solution
 	{
 		g.setColor(Color.BLACK);
